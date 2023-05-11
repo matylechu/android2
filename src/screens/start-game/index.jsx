@@ -4,7 +4,7 @@ import {styles} from "./styles"
 import { Card, Header, NumberContainer } from '../../components/index';
 import {theme} from '../../constants'
 
-const StartGame = () => {
+const StartGame = ( {onStartGame} ) => {
   const [numberOption, setNumberOption] = useState('')
   const [confirm, setConfirm] = useState(false)
   const [numberConfirm, setNumberConfirm] = useState(null)
@@ -32,7 +32,7 @@ const StartGame = () => {
   }
 
   const onHandlerStartGame = () => {
-
+    onStartGame(numberConfirm)
   }
 
 
@@ -50,7 +50,6 @@ const StartGame = () => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     <View style={styles.container}>
-      <Header title= 'Bienvenidos' />
       <Text style={styles.title}>Comencemos!</Text>
       <Card style={styles.inputContainer}>
         <Text style={styles.label}>Elige un Numero!</Text>

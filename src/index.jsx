@@ -1,12 +1,22 @@
-import { View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import {styles} from "./styles"
 import StartGame from './screens/start-game/index';
+import {useFonts} from 'expo-font'
 import { useState } from 'react';
 import  Game  from './screens/game';
 import { Header} from './components/index';
 
 export default function App() {
   const [userNumber, setUserNumber] = useState(null)
+  const [loaded] = useFonts({
+    "Crimson-Regular": require("../assets/fonts/CrimsonText-Regular.ttf"),
+    "Crimson-Bold" : require("../assets/fonts/CrimsonText-Bold.ttf"),
+    "Crimson-Italic" : require("../assets/fonts/CrimsonText-Italic.ttf")
+  })
+  if(!loaded){
+    return <View style={styles.loaderContainer}><ActivityIndicator size='large' color='red'/></View>
+  }
+
   const headerTitle = userNumber ? 'Game' : 'Bienvenidos'
 
 
@@ -14,7 +24,7 @@ export default function App() {
     setUserNumber(number)
   }
 
-  const Content = () =>( userNumber ? <Game /> : <StartGame onStartGame={onStartGame}/>)
+  const Content = () =>( userNumber ? <Game userNumber={userNumber} /> : <StartGame onStartGame={onStartGame}/>)
 
 
   return (

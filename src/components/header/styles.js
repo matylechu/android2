@@ -10,8 +10,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center'
   },
   title: {
-    fontSize: 20,
+    fontSize: 26,
     color: "#fff",
-    fontWeight:'bold'
+    fontFamily: 'Crimson-Bold'
   },
 });

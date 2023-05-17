@@ -5,6 +5,7 @@ import {useFonts} from 'expo-font'
 import { useState } from 'react';
 import  Game  from './screens/game';
 import { Header} from './components/index';
+import GameOver from './screens/game-over'
 
 export default function App() {
   const [userNumber, setUserNumber] = useState(null)
@@ -31,24 +32,22 @@ export default function App() {
     setGuessRounds(rondas)
   }
 
+  const onRestart = () => {
+  setUserNumber(null)
+  setGuessRounds(0)
+  }
+
   const Content = () => {
     if( userNumber && guessRounds <= 0){
       return <Game userNumber={userNumber} onGameOver={onGameOver} />
     }
 
     if(guessRounds > 0) {
-      return <GameOver />
+      return <GameOver rondas={guessRounds} onRestart={onRestart} userNumber={userNumber}/>
     }
     
     return <StartGame onStartGame={onStartGame} />
   }
-   /* userNumber ? (
-   <Game userNumber={userNumber} 
-    onGameOver={onGameOver} />
-    ) : (
-    <StartGame onStartGame={onStartGame}/>
-    )
- */
 
   return (
     <View style={styles.container}>

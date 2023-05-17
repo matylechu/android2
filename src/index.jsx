@@ -8,6 +8,9 @@ import { Header} from './components/index';
 
 export default function App() {
   const [userNumber, setUserNumber] = useState(null)
+  const [guessRounds, setGuessRounds] = useState(0)
+
+
   const [loaded] = useFonts({
     "Crimson-Regular": require("../assets/fonts/CrimsonText-Regular.ttf"),
     "Crimson-Bold" : require("../assets/fonts/CrimsonText-Bold.ttf"),
@@ -24,8 +27,28 @@ export default function App() {
     setUserNumber(number)
   }
 
-  const Content = () =>( userNumber ? <Game userNumber={userNumber} /> : <StartGame onStartGame={onStartGame}/>)
+  const onGameOver = (rondas) => {
+    setGuessRounds(rondas)
+  }
 
+  const Content = () => {
+    if( userNumber && guessRounds <= 0){
+      return <Game userNumber={userNumber} onGameOver={onGameOver} />
+    }
+
+    if(guessRounds > 0) {
+      return <GameOver />
+    }
+    
+    return <StartGame onStartGame={onStartGame} />
+  }
+   /* userNumber ? (
+   <Game userNumber={userNumber} 
+    onGameOver={onGameOver} />
+    ) : (
+    <StartGame onStartGame={onStartGame}/>
+    )
+ */
 
   return (
     <View style={styles.container}>
